@@ -7,7 +7,7 @@ module.exports.addUsers = async (req, res) => {
         const newUser = await userModel.register({ name, email, username }, password);
         
         res.status(201).json({
-            message: 'User registered successfully',
+            message: 'User registration successful',
             data: newUser,
             success: true
         });
