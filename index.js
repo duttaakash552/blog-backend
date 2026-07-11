@@ -7,6 +7,7 @@ const passport = require('passport');
 
 const userModel = require('./models/User');
 const userRoutes = require('./routes/User');
+const blogRoutes = require('./routes/Blog');
 
 const app = express();
 
@@ -38,8 +39,8 @@ passport.serializeUser(userModel.serializeUser());
 passport.deserializeUser(userModel.deserializeUser());
 
 app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true
+  origin: 'http://localhost:5173',
+  credentials: true
 }));
 
 app.use(express.json());
@@ -47,13 +48,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
 
 mongoose.connect(URL).then(() => {
-    console.log('Database connected successfully');
+  console.log('Database connected successfully');
 }).catch((err) => {
-    console.log('Database connection failed', err);
+  console.log('Database connection failed', err);
 });
 
 app.use('/api/user', userRoutes);
+
+app.use('/api/blog', blogRoutes);
